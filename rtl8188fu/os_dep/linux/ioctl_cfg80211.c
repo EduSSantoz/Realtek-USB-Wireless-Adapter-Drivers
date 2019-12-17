@@ -23,7 +23,7 @@
 
 #ifdef CONFIG_IOCTL_CFG80211
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 7, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 4, 0))
 #define ieee80211_band nl80211_band
 #define IEEE80211_BAND_2GHZ NL80211_BAND_2GHZ
 #define IEEE80211_BAND_5GHZ NL80211_BAND_5GHZ
@@ -6547,7 +6547,8 @@ static void rtw_cfg80211_preinit_wiphy(_adapter *adapter, struct wiphy *wiphy)
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0))
 	#ifdef CONFIG_WIFI_MONITOR
-	wiphy->software_iftypes |= BIT(NL80211_IFTYPE_MONITOR);
+	//wiphy->features |= NL80211_FEATURE_ACTIVE_MONITOR;
+	//wiphy->software_iftypes |= BIT(NL80211_IFTYPE_MONITOR) | BIT(NL80211_IFTYPE_AP);
 	#endif
 #endif
 
