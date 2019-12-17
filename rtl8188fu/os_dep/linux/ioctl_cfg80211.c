@@ -6547,8 +6547,8 @@ static void rtw_cfg80211_preinit_wiphy(_adapter *adapter, struct wiphy *wiphy)
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,0,0))
 	#ifdef CONFIG_WIFI_MONITOR
-	//wiphy->features |= NL80211_FEATURE_ACTIVE_MONITOR;
-	//wiphy->software_iftypes |= BIT(NL80211_IFTYPE_MONITOR) | BIT(NL80211_IFTYPE_AP);
+	wiphy->features |= NL80211_FEATURE_ACTIVE_MONITOR | NL80211_FEATURE_AP_SCAN;
+	wiphy->software_iftypes |= BIT(NL80211_IFTYPE_STATION) |BIT(NL80211_IFTYPE_MONITOR) | BIT(NL80211_IFTYPE_AP);
 	#endif
 #endif
 

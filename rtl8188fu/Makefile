@@ -59,6 +59,7 @@ CONFIG_BR_EXT = y
 CONFIG_ANTENNA_DIVERSITY = n
 CONFIG_TDLS = n
 CONFIG_WIFI_MONITOR = y
+CONFIG_SECOND_IFACE = y
 ######### Notify SDIO Host Keep Power During Syspend ##########
 CONFIG_RTW_SDIO_PM_KEEP_POWER = y
 ###################### MP HW TX MODE FOR VHT #######################
@@ -230,6 +231,8 @@ _OUTSRC_FILES += hal/phydm/rtl8188f/halhwimg8188f_bb.o\
 
 endif
 
+MODULE_NAME := rtl8188fu
+
 ########### END OF PATH  #################################
 
 
@@ -385,6 +388,10 @@ ifeq ($(CONFIG_WIFI_MONITOR), y)
 EXTRA_CFLAGS += -DCONFIG_WIFI_MONITOR
 endif
 
+ifeq ($(CONFIG_SECOND_IFACE), y)
+EXTRA_CFLAGS += -DCONFIG_CONCURRENT_MODE
+endif
+
 ifeq ($(CONFIG_MP_VHT_HW_TX_MODE), y)
 EXTRA_CFLAGS += -DCONFIG_MP_VHT_HW_TX_MODE
 ifeq ($(CONFIG_PLATFORM_I386_PC), y)
@@ -477,7 +484,8 @@ installfw:
 	cp -n firmware/* /lib/firmware/rtlwifi/.
 
 install:
-	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
+	mkdir -p -m 644 $(MODDESTDIR)realtek/rtl8188fu
+	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)realtek/rtl8188fu/
 	/sbin/depmod -a ${KVER}
 
 uninstall:
